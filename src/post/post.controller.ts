@@ -1,37 +1,32 @@
 import {
   Controller,
   Get,
-  Post as HttpPost,
+  Post,
   Body,
-  Param,
-  Delete
+  Param
 } from '@nestjs/common';
 
 import { PostService } from './post.service';
+import { CreatePostDto } from './dtos/create-post.dto';
 
 @Controller('posts')
 export class PostController {
 
   constructor(private postService: PostService) {}
 
-  @HttpPost()
-  create(@Body() body: any) {
-    return this.postService.createPost(body);
+  @Post()
+  createPost(@Body() body: CreatePostDto) {
+    return this.postService.create(body);
   }
 
   @Get()
-  getAll() {
-    return this.postService.findAllPosts();
+  getPosts() {
+    return this.postService.findAll();
   }
 
   @Get('/:id')
-  getOne(@Param('id') id: string) {
-    return this.postService.findPostById(parseInt(id));
-  }
-
-  @Delete('/:id')
-  remove(@Param('id') id: string) {
-    return this.postService.deletePost(parseInt(id));
+  getPost(@Param('id') id: string) {
+    return this.postService.findOne(parseInt(id));
   }
 
 }

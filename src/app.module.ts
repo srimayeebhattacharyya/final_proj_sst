@@ -20,9 +20,7 @@ import { ReactionModule } from './reaction/reaction.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-
     TypeOrmModule.forRoot(AppDataSource.options),
-
     UserModule,
     PostModule,
     AuthModule,
