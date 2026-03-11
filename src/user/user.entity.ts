@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Post } from '../post/post.entity';
 import { Exclude } from 'class-transformer';
+import { Reaction } from 'src/reaction/reaction.entity';
 
 @Entity()
 export class User {
@@ -23,4 +24,7 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany(() => Reaction, (reaction) => reaction.user)
+reactions: Reaction[];
 }

@@ -1,0 +1,17 @@
+### Create Post
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "title": "My first post",
+  "description": "This is my first NestJS post"
+}
+
+### Get All Posts
+GET http://localhost:3000/posts
+
+### Get One Post
+GET http://localhost:3000/posts/1
+
+### Delete Post
+DELETE http://localhost:3000/posts/1

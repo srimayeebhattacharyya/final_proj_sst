@@ -1,22 +1,19 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  CreateDateColumn
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { User } from '../user/user.entity';
+import { Post } from '../post/post.entity';
 
 @Entity()
 export class Reaction {
+
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  userId: number;
+  type: string; // LIKE or DISLIKE
 
-  @Column()
-  postId: number;
+  @ManyToOne(() => User, (user) => user.reactions)
+  user: User;
 
-  @Column()
-  type: string;
+  @ManyToOne(() => Post, (post) => post.reactions)
+  post: Post;
 }

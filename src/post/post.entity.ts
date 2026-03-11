@@ -7,7 +7,8 @@ import {
 } from 'typeorm';
 
 import { User } from '../user/user.entity';
-
+import { OneToMany } from 'typeorm';
+import { Reaction } from 'src/reaction/reaction.entity';
 @Entity()
 export class Post {
 
@@ -21,7 +22,7 @@ export class Post {
   description: string;
 
   @CreateDateColumn()
-  createDate: Date;
+  createdDate: Date;
 
   @Column({ default: 0 })
   like: number;
@@ -31,4 +32,7 @@ export class Post {
 
   @ManyToOne(() => User, (user) => user.posts)
   user: User;
+
+  @OneToMany(() => Reaction, (reaction) => reaction.post)
+reactions: Reaction[];
 }
