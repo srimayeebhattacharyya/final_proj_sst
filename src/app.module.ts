@@ -18,7 +18,7 @@ import { ReactionModule } from './reaction/reaction.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.development',
+      envFilePath: '.env',
     }),
 
     TypeOrmModule.forRoot(AppDataSource.options),
