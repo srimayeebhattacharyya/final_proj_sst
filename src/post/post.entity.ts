@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  CreateDateColumn,
+  CreateDateColumn
 } from 'typeorm';
 
 import { User } from '../user/user.entity';
@@ -21,7 +21,7 @@ export class Post {
   description: string;
 
   @CreateDateColumn()
-  createdDate: Date;
+  createDate: Date;
 
   @Column({ default: 0 })
   like: number;

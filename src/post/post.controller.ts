@@ -1,20 +1,37 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PostsService } from './post.service';
-import { Post as BlogPost } from './post.entity';
+import {
+  Controller,
+  Get,
+  Post as HttpPost,
+  Body,
+  Param,
+  Delete
+} from '@nestjs/common';
+
+import { PostService } from './post.service';
 
 @Controller('posts')
-export class PostsController {
+export class PostController {
 
-  constructor(private postsService: PostsService) {}
+  constructor(private postService: PostService) {}
 
-  @Post()
-  createPost(@Body() body: Partial<BlogPost>) {
-    return this.postsService.create(body);
+  @HttpPost()
+  create(@Body() body: any) {
+    return this.postService.createPost(body);
   }
 
   @Get()
-  getPosts() {
-    return this.postsService.findAll();
+  getAll() {
+    return this.postService.findAllPosts();
+  }
+
+  @Get('/:id')
+  getOne(@Param('id') id: string) {
+    return this.postService.findPostById(parseInt(id));
+  }
+
+  @Delete('/:id')
+  remove(@Param('id') id: string) {
+    return this.postService.deletePost(parseInt(id));
   }
 
 }
