@@ -1,5 +1,5 @@
 ###Create a new user
-POST http://localhost:3000/users/signup
+POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
@@ -13,19 +13,17 @@ Content-Type: application/json
 GET http://localhost:3000/users/3
 
 ###Who am I?
-GET http://localhost:3000/users/whoami
+GET http://localhost:3000/auth/whoami
 
 ###Sign out
-POST http://localhost:3000/users/signout
+POST http://localhost:3000/auth/signout
 
 ###Sign in
-POST http://localhost:3000/users/signin
+POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 
 {
-  "email": "mohna@example.com",
-  "password": "Hello123",
-  "name": "Mohna Dutta",
-  "admin": true
+  "email": "mohna1@example.com",
+  "password": "Hello123"
 }
