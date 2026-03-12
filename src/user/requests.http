@@ -3,9 +3,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "mohna1@example.com",
-  "password": "Hello123",
-  "name": "Mohna Dutta",
+  "email": "Rammohan@example.com",
+  "password": "Hi123",
+  "name": "Rammohan Dutta",
   "admin": true
 }
 
@@ -24,6 +24,8 @@ Content-Type: application/json
 
 
 {
-  "email": "mohna1@example.com",
-  "password": "Hello123"
+  "email": "Rammohan@example.com",
+  "password": "Hi123",
+  "name": "Rammohan Dutta",
+  "admin": true
 }
