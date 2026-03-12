@@ -3,25 +3,29 @@ POST http://localhost:3000/users/signup
 Content-Type: application/json
 
 {
-  "email": "johnh@example.com",
-  "password": "password123",
-  "name": "John Doe",
+  "email": "mohna1@example.com",
+  "password": "Hello123",
+  "name": "Mohna Dutta",
   "admin": true
 }
 
 ###Get a user by id
-GET http://localhost:3000/users/1
+GET http://localhost:3000/users/3
 
 ###Who am I?
-GET http://localhost:3000/auth/whoami
+GET http://localhost:3000/users/whoami
 
 ###Sign out
-POST http://localhost:3000/auth/signout
+POST http://localhost:3000/users/signout
+
 ###Sign in
-POST http://localhost:3000/auth/signin
+POST http://localhost:3000/users/signin
 Content-Type: application/json
 
+
 {
-  "email": "john@example.com",
-  "password": "password123"
+  "email": "mohna@example.com",
+  "password": "Hello123",
+  "name": "Mohna Dutta",
+  "admin": true
 }

@@ -8,6 +8,8 @@ import {
 
 import { PostService } from './post.service';
 import { CreatePostDto } from './dtos/create-post.dto';
+import { User } from 'src/user/user.entity';
+import { CurrentUser } from 'src/user/decorators/current-user.decorator';
 
 @Controller('posts')
 export class PostController {
@@ -15,8 +17,8 @@ export class PostController {
   constructor(private postService: PostService) {}
 
   @Post()
-  createPost(@Body() body: CreatePostDto) {
-    return this.postService.create(body);
+  createPost(@Body() body: CreatePostDto, @CurrentUser() user: User) {
+    return this.postService.create(body, user);
   }
 
   @Get()

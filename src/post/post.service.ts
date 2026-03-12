@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { Post } from './post.entity';
 import { CreatePostDto } from './dtos/create-post.dto';
-
+import { User } from '../user/user.entity';
 @Injectable()
 export class PostService {
 
@@ -13,10 +13,11 @@ export class PostService {
     private repo: Repository<Post>,
   ) {}
 
-  create(postDto: CreatePostDto) {
-    const post = this.repo.create(postDto);
-    return this.repo.save(post);
-  }
+  create(dto: CreatePostDto, user: User) {
+  const post = this.repo.create(dto);
+  post.user = user;
+  return this.repo.save(post);
+}
 
   findAll() {
     return this.repo.find({

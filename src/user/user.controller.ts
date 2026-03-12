@@ -15,39 +15,40 @@ import { AuthGuard } from 'src/guards/auth.guard';
 @Controller('users')
 @Serialize(UserDto)
 export class UsersController {
-  constructor(private usersService:UsersService,
-              private authService:AuthService
-  ){}
-  @Get('/whoamI')
-  @UseGuards(AuthGuard)
-  whoamI(@CurrentUser() user:User){
-    return user;
-  }
-  @Post('/signout')
-  signout(@Session()session:any){
-    session.userId=null;  
-  }
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService,
+  ) {}
 
   @Post('/signup')
-async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-  const user = await this.authService.signup(
-    body.email,
-    body.password,
-    body.name
-  );
+  async signup(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signup(
+      body.email,
+      body.password,
+      body.name,
+    );
 
-  session.userId = user.id;
-
-  return user;
-}
-
-  @Post('/signin')
-  async signin(@Body() body:CreateUserDto, @Session() session:any){
-    const user=await this.authService.signin(body.email,body.password);
-    session.userId=user.id;
+    session.userId = user.id;
     return user;
   }
-  
+
+  @Post('/signin')
+  async signin(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signin(body.email, body.password);
+    session.userId = user.id;
+    return user;
+  }
+
+  @Get('/whoami')
+  @UseGuards(AuthGuard)
+  whoami(@CurrentUser() user: User) {
+    return user;
+  }
+
+  @Post('/signout')
+  signout(@Session() session: any) {
+    session.userId = null;
+  }
   @Get('/:id')
   async findUser(@Param('id') id:string){
     console.log('handler is running');

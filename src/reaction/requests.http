@@ -1,0 +1,37 @@
+### Create Reaction (LIKE)
+
+POST http://localhost:3000/reaction
+Content-Type: application/json
+
+{
+"postId": 1,
+"type": "LIKE"
+}
+
+### Create Reaction (DISLIKE)
+
+POST http://localhost:3000/reaction
+Content-Type: application/json
+
+{
+"postId": 1,
+"type": "DISLIKE"
+}
+
+### Get Reaction Count for a Post
+
+GET http://localhost:3000/reaction/1
+
+###  React to Another Post
+
+POST http://localhost:3000/reaction
+Content-Type: application/json
+
+{
+"postId": 2,
+"type": "LIKE"
+}
+
+###  Get Reaction Count for Post 2
+
+GET http://localhost:3000/reaction/2
