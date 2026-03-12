@@ -8,7 +8,7 @@ import {
 
 import { User } from '../user/user.entity';
 import { OneToMany } from 'typeorm';
-import { Reaction } from 'src/reaction/reaction.entity';
+import { Reaction } from '../reaction/reaction.entity';
 @Entity()
 export class Post {
 

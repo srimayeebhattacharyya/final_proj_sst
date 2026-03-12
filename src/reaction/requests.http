@@ -1,10 +1,22 @@
+### Sign in first (same REST Client session)
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "mohna@example.com",
+  "password": "Hello123"
+}
+
+###Get post ids of signed-in user
+GET http://localhost:3000/posts/me/ids
+
 ### Create Reaction (LIKE)
 
 POST http://localhost:3000/reaction
 Content-Type: application/json
 
 {
-"postId": 1,
+"postId": 2,
 "type": "LIKE"
 }
 
@@ -14,13 +26,13 @@ POST http://localhost:3000/reaction
 Content-Type: application/json
 
 {
-"postId": 1,
+"postId": 2,
 "type": "DISLIKE"
 }
 
 ### Get Reaction Count for a Post
 
-GET http://localhost:3000/reaction/1
+GET http://localhost:3000/reaction/3
 
 ###  React to Another Post
 
@@ -35,3 +47,6 @@ Content-Type: application/json
 ###  Get Reaction Count for Post 2
 
 GET http://localhost:3000/reaction/2
+
+### Get Reaction Summary for All Posts
+GET http://localhost:3000/reaction/posts

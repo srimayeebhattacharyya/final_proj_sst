@@ -49,6 +49,14 @@ export class ReactionService {
   }
 
   async countReactions(postId: number) {
+    const post = await this.postRepo.findOne({
+      where: { id: postId },
+      relations: ['user'],
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
 
     const likes = await this.reactionRepo.count({
       where: {
@@ -65,8 +73,29 @@ export class ReactionService {
     });
 
     return {
+      postId,
+      userEmail: post.user?.email || null,
       likes,
       dislikes,
     };
+  }
+
+  async getAllPostReactionSummary() {
+    const posts = await this.postRepo.find({
+      relations: ['user', 'reactions'],
+    });
+
+    return posts.map((post) => {
+      const likes = post.reactions.filter((reaction) => reaction.type === 'LIKE').length;
+      const dislikes = post.reactions.filter((reaction) => reaction.type === 'DISLIKE').length;
+
+      return {
+        postId: post.id,
+        title: post.title,
+        userEmail: post.user?.email || null,
+        likes,
+        dislikes,
+      };
+    });
   }
 }

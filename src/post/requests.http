@@ -1,17 +1,29 @@
+### Sign in first (keep same REST Client session)
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "mohna1@example.com",
+  "password": "Hello123"
+}
+
 ### Create Post
 POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "My second post",
-  "description": "This is my second NestJS post"
+  "title": "My 3rd post",
+  "description": "This is my 3rd NestJS post"
 }
 
 ### Get All Posts
 GET http://localhost:3000/posts
 
+### Get Signed-in User Post IDs
+GET http://localhost:3000/posts/me/ids
+
 ### Get One Post
-GET http://localhost:3000/posts/1
+GET http://localhost:3000/posts/4
 
 ### Delete Post
-DELETE http://localhost:3000/posts/1
+DELETE http://localhost:3000/posts/4
