@@ -12,20 +12,31 @@ Content-Type: application/json
 ###Get a user by id
 GET http://localhost:3000/users/3
 
-###Who am I?
-GET http://localhost:3000/auth/whoami
-
-###Sign out
-POST http://localhost:3000/auth/signout
-
-###Sign in
+###Sign in as admin
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
+{
+  "email": "john@example.com",
+  "password": "Hello123"
+}
+
+###Who am I?
+GET http://localhost:3000/auth/whoami
+
+###Get all users (admin only)
+GET http://localhost:3000/users?email=Rammohan@example.com
+
+###Update user (admin only)
+PATCH http://localhost:3000/users/3
+Content-Type: application/json
 
 {
-  "email": "Rammohan@example.com",
-  "password": "Hi123",
-  "name": "Rammohan Dutta",
-  "admin": true
+  "name": "Updated Name"
 }
+
+###Delete user (admin only)
+DELETE http://localhost:3000/users/3
+
+###Sign out
+POST http://localhost:3000/auth/signout
