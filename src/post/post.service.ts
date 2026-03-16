@@ -21,30 +21,27 @@ export class PostService {
 
   findAll() {
     return this.repo.find({
-      relations: ['user']
+      relations: ['user', 'reactions'],
+      order: { createdDate: 'DESC' },
     });
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.repo.findOne({
       where: { id },
-      relations: ['user']
+      relations: ['user', 'reactions']
     });
   }
 
-  async findPostIdsByUser(userId: number) {
-    const rows = await this.repo
-      .createQueryBuilder('post')
-      .select('post.id', 'id')
-      .where('post.userId = :userId', { userId })
-      .orderBy('post.id', 'ASC')
-      .getRawMany();
-      //diff b/w getRawMany and getMany is that getRawMany returns the raw result from the database, while getMany returns instances of the entity with all the properties and methods defined in the entity class. In this case, since we are only selecting the post.id, getRawMany is more appropriate as it will return an array of objects with an id property, whereas getMany would return an array of Post entities with only the id property populated and other properties undefined.
-
-    return rows.map((row) => Number(row.id));
+  findPostsByUser(userId: string) {
+    return this.repo.find({
+      where: { user: { id: userId } },
+      relations: ['user', 'reactions'],
+      order: { createdDate: 'DESC' },
+    });
   }
 
-  async delete(id: number, user: User) {
+  async delete(id: string, user: User) {
     const post = await this.findOne(id);
     if (!post) {
       return "post not found";

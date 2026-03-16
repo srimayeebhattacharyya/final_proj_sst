@@ -1,10 +1,9 @@
 import { IsString, IsUUID } from 'class-validator';
 
-export class CreateReactionDto {
-
+export class CreateCommentDto {
   @IsUUID()
   postId: string;
 
   @IsString()
-  type: string; // LIKE or DISLIKE
+  content: string;
 }

@@ -3,7 +3,7 @@ import { Expose,Exclude } from "class-transformer";
 //Exclude->Do not share specifically the property
 export class UserDto{
   @Expose()
-  id:number;
+  id:string;
   
   @Expose()
   name:string;

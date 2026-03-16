@@ -9,11 +9,12 @@ import {
 import { User } from '../user/user.entity';
 import { OneToMany } from 'typeorm';
 import { Reaction } from '../reaction/reaction.entity';
+import { Comment } from '../comment/comment.entity';
 @Entity()
 export class Post {
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   title: string;
@@ -30,9 +31,12 @@ export class Post {
   @Column({ default: 0 })
   dislike: number;
 
-  @ManyToOne(() => User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.posts, { nullable: false })
   user: User;
 
   @OneToMany(() => Reaction, (reaction) => reaction.post)
-reactions: Reaction[];
+  reactions: Reaction[];
+
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
 }

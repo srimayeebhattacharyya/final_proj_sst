@@ -3,7 +3,7 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "mohna@example.com",
+  "email": "mohna1@example.com",
   "password": "Hello123"
 }
 
@@ -16,7 +16,7 @@ POST http://localhost:3000/reaction
 Content-Type: application/json
 
 {
-"postId": 2,
+"postId": "dd0a9d9d-1ee7-11f1-9aef-0a002700000e",
 "type": "LIKE"
 }
 
@@ -26,13 +26,13 @@ POST http://localhost:3000/reaction
 Content-Type: application/json
 
 {
-"postId": 2,
+"postId": "dd0a9d9d-1ee7-11f1-9aef-0a002700000e",
 "type": "DISLIKE"
 }
 
 ### Get Reaction Count for a Post
 
-GET http://localhost:3000/reaction/3
+GET http://localhost:3000/reaction/dd0a9d9d-1ee7-11f1-9aef-0a002700000e
 
 ###  React to Another Post
 
@@ -40,13 +40,13 @@ POST http://localhost:3000/reaction
 Content-Type: application/json
 
 {
-"postId": 2,
+"postId": "dd0a94b7-1ee7-11f1-9aef-0a002700000e",
 "type": "LIKE"
 }
 
 ###  Get Reaction Count for Post 2
 
-GET http://localhost:3000/reaction/2
+GET http://localhost:3000/reaction/dd0a94b7-1ee7-11f1-9aef-0a002700000e
 
 ### Get Reaction Summary for All Posts
 GET http://localhost:3000/reaction/posts

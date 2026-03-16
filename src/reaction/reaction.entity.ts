@@ -5,15 +5,15 @@ import { Post } from '../post/post.entity';
 @Entity()
 export class Reaction {
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   type: string; // LIKE or DISLIKE
 
-  @ManyToOne(() => User, (user) => user.reactions)
+  @ManyToOne(() => User, (user) => user.reactions, { nullable: false })
   user: User;
 
-  @ManyToOne(() => Post, (post) => post.reactions)
+  @ManyToOne(() => Post, (post) => post.reactions, { nullable: false })
   post: Post;
 }

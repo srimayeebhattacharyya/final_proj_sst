@@ -2,6 +2,11 @@ import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 import 'dotenv/config';
 import 'reflect-metadata';
+import { User } from './src/user/user.entity';
+import { Post } from './src/post/post.entity';
+import { Reaction } from './src/reaction/reaction.entity';
+import { Comment } from './src/comment/comment.entity';
+
 console.log('DB_CONNECTION:', process.env.DB_CONNECTION);
 // we can't access configService directly here because this file is loaded before the AppModule
 dotenv.config();
@@ -14,7 +19,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   synchronize: false,
-  entities: [__dirname + '/**/*.entity{.js,.ts}'],
+  entities: [User, Post, Reaction, Comment],
   migrations: [__dirname + '/src/database/migrations/*{.ts,.js}'],
 });
  

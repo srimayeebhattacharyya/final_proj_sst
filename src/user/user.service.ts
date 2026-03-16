@@ -21,7 +21,7 @@ export class UsersService {
 
   return this.usersRepository.save(user);
 }
-  findOne(id: number) {
+  findOne(id: string) {
     if(!id){
       return null;
     }
@@ -31,7 +31,7 @@ export class UsersService {
     return this.usersRepository.find({where:{email}});
   }
   //Bad method: update(id:number,newEmail:string,newPassword:string){}
-   async update(id:number,attrs:Partial<User>){
+   async update(id:string,attrs:Partial<User>){
     const user=await this.findOne(id);
     if(!user){
       throw new NotFoundException('User not found');
@@ -39,7 +39,7 @@ export class UsersService {
     Object.assign(user,attrs);
     return this.usersRepository.save(user);
   }
-  async remove(id:number){
+  async remove(id:string){
     const user=await this.findOne(id)
     if(!user){
       throw new NotFoundException('user not found')

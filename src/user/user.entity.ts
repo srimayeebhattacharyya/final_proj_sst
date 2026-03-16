@@ -2,12 +2,13 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Post } from '../post/post.entity';
 import { Exclude } from 'class-transformer';
 import { Reaction } from '../reaction/reaction.entity';
+import { Comment } from '../comment/comment.entity';
 
 @Entity()
 export class User {
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
@@ -26,5 +27,8 @@ export class User {
   posts: Post[];
 
   @OneToMany(() => Reaction, (reaction) => reaction.user)
-reactions: Reaction[];
+  reactions: Reaction[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 }

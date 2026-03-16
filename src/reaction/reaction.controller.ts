@@ -33,7 +33,7 @@ export class ReactionController {
 
   @Get('/:postId')
   count(@Param('postId') postId: string) {
-    return this.reactionService.countReactions(parseInt(postId));
+    return this.reactionService.countReactions(postId);
   }
 
 }

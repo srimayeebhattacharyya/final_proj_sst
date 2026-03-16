@@ -13,6 +13,7 @@ import cookieSession from 'cookie-session';
 import { AppDataSource } from '../data-source';
 import { AuthModule } from './auth/auth.module';
 import { ReactionModule } from './reaction/reaction.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ReactionModule } from './reaction/reaction.module';
     PostModule,
     AuthModule,
     ReactionModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

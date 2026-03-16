@@ -17,7 +17,6 @@ export class ReactionService {
   ) {}
 
   async react(dto: CreateReactionDto, user: User) {
-
     const post = await this.postRepo.findOne({
       where: { id: dto.postId },
     });
@@ -26,29 +25,16 @@ export class ReactionService {
       throw new NotFoundException('Post not found');
     }
 
-    const existingReaction = await this.reactionRepo.findOne({
-      where: {
-        user: { id: user.id },
-        post: { id: dto.postId },
-      },
-      relations: ['user', 'post'],
-    });
-
-    if (existingReaction) {
-      existingReaction.type = dto.type;
-      return this.reactionRepo.save(existingReaction);
-    }
-
     const reaction = this.reactionRepo.create({
       type: dto.type,
-      user: user,
-      post: post,
+      user,
+      post,
     });
 
     return this.reactionRepo.save(reaction);
   }
 
-  async countReactions(postId: number) {
+  async countReactions(postId: string) {
     const post = await this.postRepo.findOne({
       where: { id: postId },
       relations: ['user'],
