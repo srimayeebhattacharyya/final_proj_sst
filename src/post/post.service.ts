@@ -14,10 +14,11 @@ export class PostService {
   ) {}
 
   create(dto: CreatePostDto, user: User) {
-  const post = this.repo.create(dto);
-  post.user = user;
-  return this.repo.save(post);
-}
+    const post = this.repo.create(dto);
+    post.user = user;
+
+    return this.repo.save(post).then((savedPost) => this.findOne(savedPost.id));
+  }
 
   findAll() {
     return this.repo.find({
