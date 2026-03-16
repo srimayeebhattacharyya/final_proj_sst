@@ -1,7 +1,11 @@
-import { Injectable,NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { promisify } from 'util';
+import { scrypt as scryptCallback, randomBytes } from 'crypto';
+
+const scrypt = promisify(scryptCallback);
 
 @Injectable()
 export class UsersService {
@@ -36,6 +40,20 @@ export class UsersService {
     if(!user){
       throw new NotFoundException('User not found');
     }
+
+    if (attrs.email && attrs.email !== user.email) {
+      const existingUsers = await this.find(attrs.email);
+      if (existingUsers.length) {
+        throw new BadRequestException('email in use');
+      }
+    }
+
+    if (attrs.password) {
+      const salt = randomBytes(8).toString('hex');
+      const hash = (await scrypt(attrs.password, salt, 32)) as Buffer;
+      attrs.password = `${salt}.${hash.toString('hex')}`;
+    }
+
     Object.assign(user,attrs);
     return this.usersRepository.save(user);
   }

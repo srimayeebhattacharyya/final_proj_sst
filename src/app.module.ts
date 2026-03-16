@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
@@ -17,10 +16,6 @@ import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
-    }),
     TypeOrmModule.forRoot(AppDataSource.options),
     UserModule,
     PostModule,
@@ -32,16 +27,11 @@ import { CommentModule } from './comment/comment.module';
   providers: [AppService],
 })
 export class AppModule {
-
-  constructor(private configService: ConfigService) {}
-
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         cookieSession({
-          keys: [
-            this.configService.get<string>('COOKIE_KEY') || 'default-key',
-          ],
+          keys: [process.env.COOKIE_KEY || 'default-key'],
         }),
       )
       .forRoutes('*');

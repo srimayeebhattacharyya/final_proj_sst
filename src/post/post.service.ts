@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -45,12 +45,12 @@ export class PostService {
   async delete(id: string, user: User) {
     const post = await this.findOne(id);
     if (!post) {
-      return "post not found";
+      throw new NotFoundException('Post not found');
     }
     if (post.user.id !== user.id) {
-      return "you are not the owner of this post";
+      throw new ForbiddenException('You are not the owner of this post');
     }
     await this.repo.remove(post);
-    return "post deleted successfully";
+    return { message: 'Post deleted successfully' };
   }
 }

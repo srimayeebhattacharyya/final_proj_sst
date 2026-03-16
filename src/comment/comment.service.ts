@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Comment } from './comment.entity';
@@ -65,7 +65,7 @@ export class CommentService {
     }
 
     if (comment.user.id !== user.id) {
-      return { message: 'You are not the owner of this comment' };
+      throw new ForbiddenException('You are not the owner of this comment');
     }
 
     Object.assign(comment, dto);
@@ -94,7 +94,7 @@ export class CommentService {
     }
 
     if (comment.user.id !== user.id) {
-      return { message: 'You are not the owner of this comment' };
+      throw new ForbiddenException('You are not the owner of this comment');
     }
 
     await this.commentRepo.remove(comment);
