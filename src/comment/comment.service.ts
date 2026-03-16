@@ -32,7 +32,18 @@ export class CommentService {
       post,
     });
 
-    return this.commentRepo.save(comment);
+    const savedComment = await this.commentRepo.save(comment);
+
+    const createdComment = await this.commentRepo.findOne({
+      where: { id: savedComment.id },
+      relations: ['user', 'post', 'post.user'],
+    });
+
+    if (!createdComment) {
+      throw new NotFoundException('Comment not found');
+    }
+
+    return createdComment;
   }
 
   findAllByPost(postId: string) {
@@ -58,7 +69,18 @@ export class CommentService {
     }
 
     Object.assign(comment, dto);
-    return this.commentRepo.save(comment);
+    const savedComment = await this.commentRepo.save(comment);
+
+    const updatedComment = await this.commentRepo.findOne({
+      where: { id: savedComment.id },
+      relations: ['user', 'post', 'post.user'],
+    });
+
+    if (!updatedComment) {
+      throw new NotFoundException('Comment not found');
+    }
+
+    return updatedComment;
   }
 
   async delete(id: string, user: User) {

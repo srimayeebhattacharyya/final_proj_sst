@@ -4,6 +4,8 @@ import { CreateReactionDto } from './dtos/create-reaction.dto';
 import { CurrentUser } from '../user/decorators/current-user.decorator';
 import { User } from '../user/user.entity';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { ReactionDto } from './dtos/reaction.dto';
 
 @Controller('reaction')
 export class ReactionController {
@@ -12,18 +14,12 @@ export class ReactionController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async react(
+  @Serialize(ReactionDto)
+  react(
     @Body() body: CreateReactionDto,
     @CurrentUser() user: User
   ) {
-    const result = await this.reactionService.react(body, user);
-    return {
-      id: result.id,
-      type: result.type,
-      userEmail: result.user.email,
-      postId: result.post.id,
-      
-    }
+    return this.reactionService.react(body, user);
   }
 
   @Get('/posts')

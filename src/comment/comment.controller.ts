@@ -5,6 +5,8 @@ import { UpdateCommentDto } from './dtos/update-comment.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CurrentUser } from 'src/user/decorators/current-user.decorator';
 import { User } from 'src/user/user.entity';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { CommentDto } from './dtos/comment.dto';
 
 @Controller('comments')
 export class CommentController {
@@ -12,37 +14,20 @@ export class CommentController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async createComment(@Body() body: CreateCommentDto, @CurrentUser() user: User) {
-    const comment = await this.commentService.create(body, user);
-
-    return {
-      id: comment.id,
-      content: comment.content,
-      createdAt: comment.createdAt,
-      commentUserEmail: user.email,
-      postId: comment.post.id,
-      postOwnerEmail: comment.post.user.email,
-    };
+  @Serialize(CommentDto)
+  createComment(@Body() body: CreateCommentDto, @CurrentUser() user: User) {
+    return this.commentService.create(body, user);
   }
 
   @Get('/post/:postId')
-  async getCommentsForPost(@Param('postId') postId: string) {
-    const comments = await this.commentService.findAllByPost(postId);
-
-    return {
-      postId,
-      comments: comments.map((comment) => ({
-        id: comment.id,
-        content: comment.content,
-        createdAt: comment.createdAt,
-        commentUserEmail: comment.user.email,
-        postOwnerEmail: comment.post.user.email,
-      })),
-    };
+  @Serialize(CommentDto)
+  getCommentsForPost(@Param('postId') postId: string) {
+    return this.commentService.findAllByPost(postId);
   }
 
   @Patch('/:id')
   @UseGuards(AuthGuard)
+  @Serialize(CommentDto)
   async updateComment(
     @Param('id') id: string,
     @Body() body: UpdateCommentDto,
@@ -54,14 +39,7 @@ export class CommentController {
       return comment;
     }
 
-    return {
-      id: comment.id,
-      content: comment.content,
-      createdAt: comment.createdAt,
-      commentUserEmail: comment.user.email,
-      postId: comment.post.id,
-      postOwnerEmail: comment.post.user.email,
-    };
+    return comment;
   }
 
   @Delete('/:id')

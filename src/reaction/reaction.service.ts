@@ -31,7 +31,12 @@ export class ReactionService {
       post,
     });
 
-    return this.reactionRepo.save(reaction);
+    const savedReaction = await this.reactionRepo.save(reaction);
+
+    return this.reactionRepo.findOne({
+      where: { id: savedReaction.id },
+      relations: ['user', 'post'],
+    });
   }
 
   async countReactions(postId: string) {
