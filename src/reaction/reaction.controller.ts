@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { ReactionService } from './reaction.service';
 import { CreateReactionDto } from './dtos/create-reaction.dto';
 import { CurrentUser } from '../user/decorators/current-user.decorator';
@@ -28,7 +28,7 @@ export class ReactionController {
   }
 
   @Get('/:postId')
-  count(@Param('postId') postId: string) {
+  count(@Param('postId', new ParseUUIDPipe()) postId: string) {
     return this.reactionService.countReactions(postId);
   }
 

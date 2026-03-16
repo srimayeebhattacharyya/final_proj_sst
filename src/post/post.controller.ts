@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  ParseUUIDPipe,
   Post,
   Body,
   Param,
@@ -42,13 +43,13 @@ export class PostController {
 
   @Get('/:id')
   @Serialize(PostDto)
-  getPost(@Param('id') id: string) {
+  getPost(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.postService.findOne(id);
   }
 
   @Delete('/:id')
   @UseGuards(AuthGuard)
-  deletePost(@Param('id') id: string, @CurrentUser() user: User) {
+  deletePost(@Param('id', new ParseUUIDPipe()) id: string, @CurrentUser() user: User) {
     return this.postService.delete(id, user);
   }
 

@@ -1,10 +1,10 @@
-import { IsString, IsUUID } from 'class-validator';
+import { IsIn, IsUUID } from 'class-validator';
 
 export class CreateReactionDto {
 
   @IsUUID()
   postId: string;
 
-  @IsString()
+  @IsIn(['LIKE', 'DISLIKE'])
   type: string; // LIKE or DISLIKE
 }

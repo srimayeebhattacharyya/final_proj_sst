@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dtos/create-comment.dto';
 import { UpdateCommentDto } from './dtos/update-comment.dto';
@@ -21,7 +21,7 @@ export class CommentController {
 
   @Get('/post/:postId')
   @Serialize(CommentDto)
-  getCommentsForPost(@Param('postId') postId: string) {
+  getCommentsForPost(@Param('postId', new ParseUUIDPipe()) postId: string) {
     return this.commentService.findAllByPost(postId);
   }
 
@@ -29,7 +29,7 @@ export class CommentController {
   @UseGuards(AuthGuard)
   @Serialize(CommentDto)
   async updateComment(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() body: UpdateCommentDto,
     @CurrentUser() user: User,
   ) {
@@ -44,7 +44,7 @@ export class CommentController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard)
-  deleteComment(@Param('id') id: string, @CurrentUser() user: User) {
+  deleteComment(@Param('id', new ParseUUIDPipe()) id: string, @CurrentUser() user: User) {
     return this.commentService.delete(id, user);
   }
 }

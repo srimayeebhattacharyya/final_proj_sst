@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Patch, Query, Delete, NotFoundException, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Query, Delete, NotFoundException, Body, ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
@@ -12,7 +12,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get('/:id')
-  async findUser(@Param('id') id:string){
+  async findUser(@Param('id', new ParseUUIDPipe()) id:string){
     console.log('handler is running');
     const user = await this.usersService.findOne(id);
     if(!user){
@@ -29,13 +29,13 @@ export class UsersController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard, AdminGuard)
-  removeUser(@Param('id') id:string){
+  removeUser(@Param('id', new ParseUUIDPipe()) id:string){
     return this.usersService.remove(id)
   }
 
   @Patch('/:id')
   @UseGuards(AuthGuard, AdminGuard)
-  updateUser(@Param('id') id:string,@Body() body:UpdateUserDto){
+  updateUser(@Param('id', new ParseUUIDPipe()) id:string,@Body() body:UpdateUserDto){
     return this.usersService.update(id,body)
   }
 }
