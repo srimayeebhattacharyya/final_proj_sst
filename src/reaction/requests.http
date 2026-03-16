@@ -7,8 +7,8 @@ Content-Type: application/json
   "password": "Hello123"
 }
 
-###Get post ids of signed-in user
-GET http://localhost:3000/posts/me/ids
+### Get signed-in user posts
+GET http://localhost:3000/posts/me
 
 ### Create Reaction (LIKE)
 
@@ -44,7 +44,7 @@ Content-Type: application/json
 "type": "LIKE"
 }
 
-###  Get Reaction Count for Post 2
+### Get Reaction Count for Another Post
 
 GET http://localhost:3000/reaction/dd0a94b7-1ee7-11f1-9aef-0a002700000e
 

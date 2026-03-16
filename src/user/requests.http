@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###Get a user by id
-GET http://localhost:3000/users/3
+GET http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
 
 ###Sign in as admin
 POST http://localhost:3000/auth/signin
@@ -28,7 +28,7 @@ GET http://localhost:3000/auth/whoami
 GET http://localhost:3000/users?email=Rammohan@example.com
 
 ###Update user (admin only)
-PATCH http://localhost:3000/users/3
+PATCH http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ###Delete user (admin only)
-DELETE http://localhost:3000/users/3
+DELETE http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
 
 ###Sign out
 POST http://localhost:3000/auth/signout
