@@ -1,4 +1,4 @@
-@jwtToken = REPLACE_WITH_JWT_TOKEN
+@jwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZDU2M2IxNy0xYTUzLTQ1ZmQtOTgzMS00ZjNiNzNlOTVjODIiLCJlbWFpbCI6IlJhbUBleGFtcGxlLmNvbSIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzM3NTQ0MDMsImV4cCI6MTc3Mzg0MDgwM30.h8r4uzbIzMXpjB4Y52oKZwnGVykpVO30VK0wTJ10Q9s
 
 ###Create a new user
 POST http://localhost:3000/auth/signup
@@ -27,11 +27,11 @@ GET http://localhost:3000/auth/whoami
 Authorization: Bearer {{jwtToken}}
 
 ###Get all users (admin only)
-GET http://localhost:3000/users?email=Rammohan@example.com
+GET http://localhost:3000/users?email=Ram@example.com
 Authorization: Bearer {{jwtToken}}
 
 ###Update user (admin only)
-PATCH http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
+PATCH http://localhost:3000/users/ed563b17-1a53-45fd-9831-4f3b73e95c82
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
@@ -40,11 +40,11 @@ Authorization: Bearer {{jwtToken}}
 }
 
 ###Make user admin (admin only)
-PATCH http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e/make-admin
+PATCH http://localhost:3000/users/ed563b17-1a53-45fd-9831-4f3b73e95c82/make-admin
 Authorization: Bearer {{jwtToken}}
 
 ###Delete user (admin only)
-DELETE http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
+DELETE http://localhost:3000/users/ed563b17-1a53-45fd-9831-4f3b73e95c82
 Authorization: Bearer {{jwtToken}}
 
 ###Sign out

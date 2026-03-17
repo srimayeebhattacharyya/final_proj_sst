@@ -1,12 +1,12 @@
-@jwtToken = REPLACE_WITH_JWT_TOKEN
+@jwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZDU2M2IxNy0xYTUzLTQ1ZmQtOTgzMS00ZjNiNzNlOTVjODIiLCJlbWFpbCI6IlJhbUBleGFtcGxlLmNvbSIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzM3NTQ2OTYsImV4cCI6MTc3Mzg0MTA5Nn0.qNJDoFDJRJ9JOI0jMCW8Kgqa8uwH2n7Bnop9Zh2tCKc
 
 ### Sign in first and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "mohna1@example.com",
-  "password": "Hello123"
+  "email": "Ram@example.com",
+  "password": "Hellloooo123"
 }
 
 ### Get signed-in user posts
@@ -20,7 +20,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-"postId": "dd0a9d9d-1ee7-11f1-9aef-0a002700000e",
+"postId":"25bfe95c-ff9a-4def-b176-c6a2d6ea874d",
 "type": "LIKE"
 }
 
@@ -31,7 +31,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-"postId": "dd0a9d9d-1ee7-11f1-9aef-0a002700000e",
+"postId": "25bfe95c-ff9a-4def-b176-c6a2d6ea874d",
 "type": "DISLIKE"
 }
 
@@ -46,7 +46,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-"postId": "dd0a94b7-1ee7-11f1-9aef-0a002700000e",
+"postId": "25bfe95c-ff9a-4def-b176-c6a2d6ea874d",
 "type": "LIKE"
 }
 

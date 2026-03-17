@@ -1,12 +1,12 @@
-@jwtToken = REPLACE_WITH_JWT_TOKEN
+@jwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZDU2M2IxNy0xYTUzLTQ1ZmQtOTgzMS00ZjNiNzNlOTVjODIiLCJlbWFpbCI6IlJhbUBleGFtcGxlLmNvbSIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzM3NTQ1MzIsImV4cCI6MTc3Mzg0MDkzMn0.cMETLeOevfEpwWccLxyWP2FFiIbq9uWwZn5sZxEYT6Q
 
 ### Sign in first and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "mohna1@example.com",
-  "password": "Hello123"
+  "email": "Ram@example.com",
+  "password": "Hellloooo123"
 }
 
 ### Create Post
@@ -15,8 +15,8 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-  "title": "My 3rd post",
-  "description": "This is my 3rd NestJS post"
+  "title": "My 1st post",
+  "description": "This is my 1st NestJS post"
 }
 
 ### Get All Posts
@@ -27,8 +27,8 @@ GET http://localhost:3000/posts/me
 Authorization: Bearer {{jwtToken}}
 
 ### Get One Post
-GET http://localhost:3000/posts/dd0a9d9d-1ee7-11f1-9aef-0a002700000e
+GET http://localhost:3000/posts/25bfe95c-ff9a-4def-b176-c6a2d6ea874d
 
 ### Delete Post
-DELETE http://localhost:3000/posts/dd0a9d9d-1ee7-11f1-9aef-0a002700000e
+DELETE http://localhost:3000/posts/25bfe95c-ff9a-4def-b176-c6a2d6ea874d
 Authorization: Bearer {{jwtToken}}

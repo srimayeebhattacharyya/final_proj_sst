@@ -1,12 +1,13 @@
-@jwtToken = REPLACE_WITH_JWT_TOKEN
+@jwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZDU2M2IxNy0xYTUzLTQ1ZmQtOTgzMS00ZjNiNzNlOTVjODIiLCJlbWFpbCI6IlJhbUBleGFtcGxlLmNvbSIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzM3NTQ4NjcsImV4cCI6MTc3Mzg0MTI2N30.jFA99ffOFGEkwFbUCQdlLswTvfDrQP0-h7VN-cxbeik
 
 ### Sign in first and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
+
 {
-  "email": "mohna1@example.com",
-  "password": "Hello123"
+  "email": "Ram@example.com",
+  "password": "Hellloooo123"
 }
 
 ### Create comment
@@ -15,22 +16,22 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-  "postId": "REPLACE_WITH_POST_UUID",
-  "content": "This is a comment on the post"
+  "postId": "25bfe95c-ff9a-4def-b176-c6a2d6ea874d",
+  "content": "Hello looking pretty good!"
 }
 
 ### Get all comments for a specific post
-GET http://localhost:3000/comments/post/REPLACE_WITH_POST_UUID
+GET http://localhost:3000/comments/post/25bfe95c-ff9a-4def-b176-c6a2d6ea874d
 
 ### Edit comment
-PATCH http://localhost:3000/comments/REPLACE_WITH_COMMENT_UUID
+PATCH http://localhost:3000/comments/986d6e51-ec74-4c96-b656-7910ec0c3315
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-  "content": "Updated comment content"
-}
+    "content": "Hello beauty!!"
+  }
 
 ### Delete comment
-DELETE http://localhost:3000/comments/REPLACE_WITH_COMMENT_UUID
+DELETE http://localhost:3000/comments/986d6e51-ec74-4c96-b656-7910ec0c3315
 Authorization: Bearer {{jwtToken}}
