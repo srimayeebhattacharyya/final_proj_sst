@@ -1,4 +1,6 @@
-### Sign in first (same REST Client session)
+@jwtToken = REPLACE_WITH_JWT_TOKEN
+
+### Sign in first and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
@@ -9,11 +11,13 @@ Content-Type: application/json
 
 ### Get signed-in user posts
 GET http://localhost:3000/posts/me
+Authorization: Bearer {{jwtToken}}
 
 ### Create Reaction (LIKE)
 
 POST http://localhost:3000/reaction
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
 "postId": "dd0a9d9d-1ee7-11f1-9aef-0a002700000e",
@@ -24,6 +28,7 @@ Content-Type: application/json
 
 POST http://localhost:3000/reaction
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
 "postId": "dd0a9d9d-1ee7-11f1-9aef-0a002700000e",
@@ -38,6 +43,7 @@ GET http://localhost:3000/reaction/dd0a9d9d-1ee7-11f1-9aef-0a002700000e
 
 POST http://localhost:3000/reaction
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
 "postId": "dd0a94b7-1ee7-11f1-9aef-0a002700000e",

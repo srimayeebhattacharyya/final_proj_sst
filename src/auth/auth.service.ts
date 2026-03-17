@@ -1,13 +1,18 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "../user/user.service";
 import { randomBytes, scrypt as scryptCallback } from "crypto";
 import { promisify } from "util";
+import { User } from "src/user/user.entity";
 
 const scrypt = promisify(scryptCallback);
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
 
   async signup(email: string, password: string, name: string) {
     const users = await this.usersService.find(email);
@@ -41,5 +46,13 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  getAccessToken(user: User) {
+    return this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      admin: user.admin,
+    });
   }
 }

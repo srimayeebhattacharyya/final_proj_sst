@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post, Req, Session, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/dtos/create-user.dto';
 import { SignInDto } from './dtos/signin.dto';
@@ -7,26 +7,28 @@ import { User } from 'src/user/user.entity';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from 'src/user/dtos/user.dto';
-import type { Request } from 'express';
+import { AuthResponseDto } from './dtos/auth-response.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/signup')
-  @Serialize(UserDto)
-  async signup(@Body() body: CreateUserDto, @Session() session: any) {
+  @Serialize(AuthResponseDto)
+  async signup(@Body() body: CreateUserDto) {
     const user = await this.authService.signup(body.email, body.password, body.name);
-    session.userId = user.id;
-    return user;
+    const accessToken = this.authService.getAccessToken(user);
+
+    return { accessToken, user };
   }
 
   @Post('/signin')
-  @Serialize(UserDto)
-  async signin(@Body() body: SignInDto, @Session() session: any) {
+  @Serialize(AuthResponseDto)
+  async signin(@Body() body: SignInDto) {
     const user = await this.authService.signin(body.email, body.password);
-    session.userId = user.id;
-    return user;
+    const accessToken = this.authService.getAccessToken(user);
+
+    return { accessToken, user };
   }
 
   @Get('/whoami')
@@ -38,8 +40,7 @@ export class AuthController {
 
   @Post('/signout')
   @HttpCode(200)
-  signout(@Req() req: Request) {
-    req.session = null;
+  signout() {
     return { message: 'Signed out successfully' };
   }
 }

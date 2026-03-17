@@ -1,42 +1,51 @@
+@jwtToken = REPLACE_WITH_JWT_TOKEN
+
 ###Create a new user
 POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "Rammohan@example.com",
-  "password": "Hi123",
-  "name": "Rammohan Dutta",
-  "admin": true
+  "email": "Ram@example.com",
+  "password": "Hellloooo123",
+  "name": "Ram Dutta"
 }
 
 ###Get a user by id
-GET http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
+GET http://localhost:3000/users/ed563b17-1a53-45fd-9831-4f3b73e95c82
 
-###Sign in as admin
+###Sign in and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
-  "password": "Hello123"
+  "email": "Ram@example.com",
+  "password": "Hellloooo123"
 }
 
 ###Who am I?
 GET http://localhost:3000/auth/whoami
+Authorization: Bearer {{jwtToken}}
 
 ###Get all users (admin only)
 GET http://localhost:3000/users?email=Rammohan@example.com
+Authorization: Bearer {{jwtToken}}
 
 ###Update user (admin only)
 PATCH http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
   "name": "Updated Name"
 }
 
+###Make user admin (admin only)
+PATCH http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e/make-admin
+Authorization: Bearer {{jwtToken}}
+
 ###Delete user (admin only)
 DELETE http://localhost:3000/users/dd093dbb-1ee7-11f1-9aef-0a002700000e
+Authorization: Bearer {{jwtToken}}
 
 ###Sign out
 POST http://localhost:3000/auth/signout

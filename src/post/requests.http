@@ -1,4 +1,6 @@
-### Sign in first (keep same REST Client session)
+@jwtToken = REPLACE_WITH_JWT_TOKEN
+
+### Sign in first and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
@@ -10,6 +12,7 @@ Content-Type: application/json
 ### Create Post
 POST http://localhost:3000/posts
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
   "title": "My 3rd post",
@@ -21,9 +24,11 @@ GET http://localhost:3000/posts
 
 ### Get Signed-in User Posts
 GET http://localhost:3000/posts/me
+Authorization: Bearer {{jwtToken}}
 
 ### Get One Post
 GET http://localhost:3000/posts/dd0a9d9d-1ee7-11f1-9aef-0a002700000e
 
 ### Delete Post
 DELETE http://localhost:3000/posts/dd0a9d9d-1ee7-11f1-9aef-0a002700000e
+Authorization: Bearer {{jwtToken}}

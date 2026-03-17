@@ -1,19 +1,7 @@
 import {
-  CanActivate,
-  ExecutionContext,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
+import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
-  canActivate(context: ExecutionContext): boolean {
-    const request = context.switchToHttp().getRequest();
-
-    if (request.currentUser) {
-      return true;
-    }
-
-    throw new UnauthorizedException('You must be signed in');
-  }
-}
+export class AuthGuard extends PassportAuthGuard('jwt') {}

@@ -1,4 +1,6 @@
-### Sign in first
+@jwtToken = REPLACE_WITH_JWT_TOKEN
+
+### Sign in first and copy accessToken into jwtToken above
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
@@ -10,6 +12,7 @@ Content-Type: application/json
 ### Create comment
 POST http://localhost:3000/comments
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
   "postId": "REPLACE_WITH_POST_UUID",
@@ -22,6 +25,7 @@ GET http://localhost:3000/comments/post/REPLACE_WITH_POST_UUID
 ### Edit comment
 PATCH http://localhost:3000/comments/REPLACE_WITH_COMMENT_UUID
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
   "content": "Updated comment content"
@@ -29,3 +33,4 @@ Content-Type: application/json
 
 ### Delete comment
 DELETE http://localhost:3000/comments/REPLACE_WITH_COMMENT_UUID
+Authorization: Bearer {{jwtToken}}

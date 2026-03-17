@@ -64,4 +64,15 @@ export class UsersService {
     }
     return this.usersRepository.remove(user);
   }
+
+  async makeAdmin(id: string) {
+    const user = await this.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.admin = true;
+    return this.usersRepository.save(user);
+  }
 }

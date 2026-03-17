@@ -37,4 +37,10 @@ export class UsersController {
   updateUser(@Param('id', new ParseUUIDPipe()) id:string,@Body() body:UpdateUserDto){
     return this.usersService.update(id,body)
   }
+
+  @Patch('/:id/make-admin')
+  @UseGuards(AuthGuard, AdminGuard)
+  makeAdmin(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.usersService.makeAdmin(id);
+  }
 }
